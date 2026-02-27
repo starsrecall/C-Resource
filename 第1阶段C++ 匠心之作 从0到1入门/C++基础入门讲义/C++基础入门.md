@@ -174,6 +174,13 @@ int main() {
 }
 ```
 
+**输出**
+
+```tex
+一周里总共有 7 天
+一年里总共有 12 个月份
+```
+
 
 
 
@@ -193,26 +200,40 @@ int main() {
 
 C++关键字如下：
 
-| asm        | do           | if               | return      | typedef  |
-| ---------- | ------------ | ---------------- | ----------- | -------- |
-| auto       | double       | inline           | short       | typeid   |
-| bool       | dynamic_cast | int              | signed      | typename |
-| break      | else         | long             | sizeof      | union    |
-| case       | enum         | mutable          | static      | unsigned |
-| catch      | explicit     | namespace        | static_cast | using    |
-| char       | export       | new              | struct      | virtual  |
-| class      | extern       | operator         | switch      | void     |
-| const      | false        | private          | template    | volatile |
-| const_cast | float        | protected        | this        | wchar_t  |
-| continue   | for          | public           | throw       | while    |
-| default    | friend       | register         | true        |          |
-| delete     | goto         | reinterpret_cast | try         |          |
+
+| **关键字** | **关键字** | **关键字** | **关键字** | **关键字** |
+|------------|------------|------------|------------|------------|
+| alignas    | alignof    | and        | and_eq     | asm        |
+| auto       | bitand     | bitor      | bool       | break      |
+| case       | catch      | char       | char16_t   | char32_t   |
+| class      | compl      | const      | const_cast | constexpr  |
+| continue   | decltype   | default    | delete     | do         |
+| double     | dynamic_cast | else     | enum       | explicit   |
+| export     | extern     | false      | final      | float      |
+| for        | friend     | goto       | if         | inline     |
+| int        | long       | mutable    | namespace  | new        |
+| noexcept   | not        | not_eq     | nullptr    | operator   |
+| or         | or_eq      | override   | private    | protected  |
+| public     | register   | reinterpret_cast | return | short      |
+| signed     | sizeof     | static     | static_assert | static_cast |
+| struct     | switch     | template   | this       | thread_local |
+| throw      | true       | try        | typedef    | typeid     |
+| typename   | union      | unsigned   | using      | virtual    |
+| void       | volatile   | wchar_t    | while      | xor        |
+| xor_eq     |            |            |            |            |
+
+**补充说明**：
+- `final` 和 `override` 是C++11引入的上下文关键字。
+- `export` 在C++98/03中为关键字，C++11后原有功能移除但仍保留为保留字。
+- `register` 在C++17中被移除，但仍是保留字。
+- 替代标记（如 `and`, `or`, `xor_eq` 等）在C++标准中也是关键字。
+- 如需最新标准请参考cppreference([Chinese](https://cppreference.cn/w/cpp/keyword))([English](https://en.cppreference.com/w/cpp/keyword ))。
+
+
 
 `提示：在给变量或者常量起名称时候，不要用C++得关键字，否则会产生歧义。`
 
-
-
-
+`建议：慢慢学，初学者看看就行了，留个印象。`
 
 
 
@@ -302,7 +323,7 @@ int main() {
 **输出：**
 
 
-```text
+```tex
 short 类型所占内存空间为： 2
 int 类型所占内存空间为： 4
 long 类型所占内存空间为： 4
@@ -375,7 +396,7 @@ int main() {
 
 **输出**
 
-```text
+```tex
 f1=3.14
 d1=3.14
 float  sizeof = 4
@@ -445,7 +466,7 @@ float f1 = 3.14f;   // 直接使用 float 字面量
 >
 > | **字符** | **ASCII**值 |
 > | -------- | ----------- |
-> |          | 80          |
+> | NULL     | 0           |
 > | A        | 65          |
 > | 0        | 80          |
 > | a        | 97          |
@@ -461,21 +482,36 @@ float f1 = 3.14f;   // 直接使用 float 字面量
 int main() {
 	
 	char ch = 'a';
-	cout << ch << endl;
-	cout << sizeof(char) << endl;
+	cout <<"ch = "<< ch << endl;
+	cout  <<"sizeof(char) = "<< sizeof(char) << endl;
 
 	//ch = "abcde"; //错误，不可以用双引号
 	//ch = 'abcde'; //错误，单引号内只能引用一个字符
 
-	cout << (int)ch << endl;  //查看字符a对应的ASCII码
+	cout <<"(int)ch = "<< (int)ch << endl;  //查看字符a对应的ASCII码
 	ch = 97; //可以直接用ASCII给字符型变量赋值
-	cout << ch << endl;
+	cout <<"ch = "<< ch << endl;
 
 	system("pause");
 
 	return 0;
 }
 ```
+
+
+
+**输出**
+
+```tex
+ch = a
+sizeof(char) = 1
+(int)ch = 97
+ch = a
+```
+
+
+
+
 
 ASCII码表格：
 
@@ -539,24 +575,24 @@ ASCII 码大致由以下**两部分组**成：
 
 现阶段我们常用的转义字符有：` \n  \\  \t`
 
-| **转义字符** | **含义**                                | **ASCII**码值（十进制） |
-| ------------ | --------------------------------------- | ----------------------- |
-| \a           | 警报                                    | 007                     |
-| \b           | 退格(BS) ，将当前位置移到前一列         | 008                     |
-| \f           | 换页(FF)，将当前位置移到下页开头        | 012                     |
-| **\n**       | **换行(LF) ，将当前位置移到下一行开头** | **010**                 |
-| \r           | 回车(CR) ，将当前位置移到本行开头       | 013                     |
-| **\t**       | **水平制表(HT)  （跳到下一个TAB位置）** | **009**                 |
-| \v           | 垂直制表(VT)                            | 011                     |
-| **\\\\**     | **代表一个反斜线字符"\"**               | **092**                 |
-| \'           | 代表一个单引号（撇号）字符              | 039                     |
-| \"           | 代表一个双引号字符                      | 034                     |
-| \?           | 代表一个问号                            | 063                     |
-| \0           | 数字0                                   | 000                     |
-| \ddd         | 8进制转义字符，d范围0~7                 | 3位8进制                |
-| \xhh         | 16进制转义字符，h范围0~9，a~f，A~F      | 3位16进制               |
+| **转义字符** | **含义**                                                     | **ASCII**码值（十进制） |
+| ------------ | ------------------------------------------------------------ | ----------------------- |
+| \a           | 警报                                                         | 007                     |
+| \b           | 退格(BS) ，将当前位置移到前一列                              | 008                     |
+| \f           | 换页(FF)，将当前位置移到下页开头                             | 012                     |
+| **\n**       | **换行(LF) ，将当前位置移到下一行开头**                      | **010**                 |
+| \r           | 回车(CR) ，将当前位置移到本行开头                            | 013                     |
+| **\t**       | **水平制表(HT)  （跳到下一个TAB位置）**                      | **009**                 |
+| \v           | 垂直制表(VT)                                                 | 011                     |
+| **\\\\**     | **代表一个反斜线字符"\\"**                                   | **092**                 |
+| \\'          | 代表一个单引号（撇号）字符                                   | 039                     |
+| \\"          | 代表一个双引号字符                                           | 034                     |
+| \?           | 代表一个问号                                                 | 063                     |
+| \0           | **空字符（null character）**，其 ASCII 码值为 0，用于字符串结束标志 | 000                     |
+| \ddd         | 8进制转义字符，d范围0~7                                      | 3位8进制                |
+| \xhh         | 16进制转义字符，h范围0\~9，a\~f，A~F.**通常用两位十六进制数表示一个字符（如 `\x0A` 表示换行），但标准允许任意多位（直到遇到第一个非十六进制字符为止）(初学者基本可以不必理会)** | 3位16进制               |
 
-示例：
+**示例：**
 
 ```C++
 int main() {
@@ -570,6 +606,13 @@ int main() {
 
 	return 0;
 }
+```
+
+**输出**
+
+```tex
+\
+	Hello
 ```
 
 
