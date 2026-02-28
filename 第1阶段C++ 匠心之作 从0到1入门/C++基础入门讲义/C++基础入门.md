@@ -18,7 +18,7 @@
 ![1541383178746](assets/1541383178746.png)
 
 
-
+b
 ![1541384366413](assets/1541384366413.png)
 
 #### 1.1.2 创建文件
@@ -256,11 +256,7 @@ C++关键字如下：
 
 
 
-
-
-
-
-
+------
 
 
 
@@ -615,10 +611,34 @@ int main() {
 	Hello
 ```
 
+**补充（关于\t的一些知识）**
 
+与 `cout` 等输出流配合，将光标移动到下一个制表位（通常每 4 个字符一档，但取决于具体环境或终端设置）。
+1. **示例：**
 
+```c++
 
+int main() {
 
+    cout << "Name\tAge\tCity\n";
+    cout << "Alice\t25\tNew York\n";
+    cout << "Bob\t30\tLos Angeles\n";
+    cout << "abcdef\t123456789\tAngeles\n";
+      
+    system(pause);
+    return 0;
+}
+```
+
+2. **输出（假设制表位为 4 列）：**
+
+```tex
+Name	Age	City
+Alice	25	New York
+Bob	30	Los Angeles
+abcdef	123456789	Angeles
+
+```
 
 
 
@@ -694,16 +714,16 @@ bool类型只有两个值：
 
 **bool类型占==1个字节==大小**
 
-示例：
+**示例：**
 
 ```C++
 int main() {
 
 	bool flag = true;
-	cout << flag << endl; // 1
+	cout <<"flag = "<< flag << endl; // 1
 
 	flag = false;
-	cout << flag << endl; // 0
+	cout <<"flag = "<< flag << endl; // 0
 
 	cout << "size of bool = " << sizeof(bool) << endl; //1
 	
@@ -713,9 +733,13 @@ int main() {
 }
 ```
 
+**输出**
 
-
-
+```tex
+flag = 1
+flag = 0
+size of bool = 1
+```
 
 
 
@@ -731,11 +755,11 @@ int main() {
 
 **作用：用于从键盘获取数据**
 
-**关键字：**cin
+**关键字：==cin==**
 
 **语法：** `cin >> 变量 `
 
-示例：
+**示例：**
 
 ```C++
 int main(){
@@ -770,16 +794,49 @@ int main(){
 	cin >> flag;
 	cout << flag << endl;
 	system("pause");
+    
 	return EXIT_SUCCESS;
 }
 ```
 
+**补充（关于EXIT_SUCCESS）**
+
+1. **基本含义**
+
+- `EXIT_SUCCESS` 是一个**预处理宏**，定义在标准库头文件 `<cstdlib>`（C 风格为 `<stdlib.h>`）中。
+- 它通常展开为整数常量 **`0`**，表示程序成功执行完毕。
+- 与之对应的是 `EXIT_FAILURE`，通常展开为非零值（如 `1`），表示程序执行失败。
+
+2. **在 `main` 函数中的作用**
+
+- `main` 函数的返回值会被传递给调用进程（通常是操作系统），用于判断程序是否正常终止。
+- 返回 `EXIT_SUCCESS` 等价于 `return 0;`，都表示“成功”。
+
+3. **宏的定义与来源**
+
+在 `<cstdlib>` 中，`EXIT_SUCCESS` 通常定义为：
+
+```c++
+#define EXIT_SUCCESS 0
+```
+
+而 `EXIT_FAILURE` 一般定义为 `1`（具体值由实现定义，但保证非零）。
+
+4. **使用注意事项**
+
+- 必须包含对应的头文件：`#include <cstdlib>` 或 `#include <stdlib.h>`，否则编译器会报错（`EXIT_SUCCESS` 未定义）。
+- 这段代码中如果没有包含 `<cstdlib>`，直接使用 `EXIT_SUCCESS` 将导致编译失败。正确的做法是添加头文件，或直接用 `return 0;`。
+
+5. **与其他退出方式的对比**
+
+- `exit(EXIT_SUCCESS);` 函数：立即终止程序，并执行一些清理工作（如调用通过 `atexit` 注册的函数），然后返回状态码给操作系统。
+- `return EXIT_SUCCESS;` 在 `main` 中效果等同于 `exit(EXIT_SUCCESS);`，但会先执行局部对象的析构函数。
 
 
 
 
 
-
+------
 
 
 
@@ -818,6 +875,8 @@ int main(){
 | ++         | 后置递增   | a=2; b=a++; | a=3; b=2; |
 | --         | 前置递减   | a=2; b=--a; | a=1; b=1; |
 | --         | 后置递减   | a=2; b=a--; | a=1; b=2; |
+
+> 小知识点：--a 的运行速度比 a-- 快一点，在比赛时可能有奇效。++同理。
 
 **示例1：**
 
@@ -931,8 +990,6 @@ int main() {
 
 ```
 
-
-
 > 总结：前置递增先对变量进行++，再计算表达式，后置递增相反
 
 
@@ -1026,7 +1083,7 @@ int main() {
 | <=         | 小于等于 | 4 <= 3   | 0        |
 | \>=        | 大于等于 | 4 >= 1   | 1        |
 
-示例：
+**示例：**
 
 ```C++
 int main() {
@@ -1175,9 +1232,7 @@ int main() {
 
 
 
-
-
-
+-------
 
 
 
@@ -1213,10 +1268,19 @@ if语句的三种形式
 
 1. 单行格式if语句：`if(条件){ 条件满足执行的语句 }`
 
-   ![img](assets/clip_image002.png)
-
+   ```mermaid
+   graph TD
+       A[开始] --> B{判断条件}
+       B -->|条件成立| C[执行操作]
+       B -->|条件不成立| D[执行操作]
+       C --> E[结束]
+       D --> E
+   ```
+   
+   
+   
    示例：
-
+   
    ```C++
    int main() {
    
@@ -1241,7 +1305,7 @@ if语句的三种形式
    	return 0;
    }
    ```
-
+   
    
 
 
@@ -2032,7 +2096,7 @@ int main() {
 
 
 
-
+-------
 
 
 
@@ -2488,7 +2552,7 @@ int main() {
 
 
 
-
+-----
 
 
 
@@ -2825,9 +2889,7 @@ int main() {
 
 
 
-
-
-
+-------
 
 
 
@@ -3229,7 +3291,7 @@ int main() {
 
 
 
-
+-------
 
 
 
